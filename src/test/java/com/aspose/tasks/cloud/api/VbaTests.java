@@ -57,8 +57,8 @@ public class VbaTests extends TestBase {
         assertEquals(Integer.valueOf(200), result.getCode());
         assertNotNull(result.getVbaProject());
         assertNotNull(result.getVbaProject().getModules());
-        assertEquals(7, result.getVbaProject().getModules().size());
-        assertEquals("Module1", result.getVbaProject().getModules().get(0).getName());
-        assertTrue(result.getVbaProject().getModules().get(0).getSourceCode().startsWith("Type MEMORYSTATUS"));
+        assertEquals(8, result.getVbaProject().getModules().size());
+        assertEquals("Module1", result.getVbaProject().getModules().get(1).getName());
+        assertTrue(result.getVbaProject().getModules().get(1).getSourceCode().startsWith("Type MEMORYSTATUS"));
     }
 }
