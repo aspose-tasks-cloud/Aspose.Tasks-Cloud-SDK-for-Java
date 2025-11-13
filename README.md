@@ -32,6 +32,9 @@ Feel free to explore the [Developer's Guide](https://docs.aspose.cloud/display/t
 XER, XLSX, HTML, XML, TXT, TIF, SVG, PNG, JPEG
 
 
+## Enhancements in Version 25.11
+- Enhanced reading data from Primavera-specific task's properties.
+
 ## Enhancements in Version 25.8
 - Added new ability to level tasks for the resources.
 - Provided the ability to clear leveling delay that was previously added to the tasks during resource leveling.
@@ -91,7 +94,7 @@ Add this dependency to your project's POM:
     <dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-tasks-cloud</artifactId>
-        <version>25.10.0</version>
+        <version>25.11.0</version>
     </dependency>
 </dependencies>
 ```

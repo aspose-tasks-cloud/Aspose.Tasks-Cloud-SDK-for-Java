@@ -30,6 +30,7 @@ package com.aspose.tasks.cloud.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.aspose.tasks.cloud.model.PrimaveraActivityType;
+import com.aspose.tasks.cloud.model.PrimaveraConstraintType;
 import com.aspose.tasks.cloud.model.PrimaveraDurationType;
 import com.aspose.tasks.cloud.model.PrimaveraPercentCompleteType;
 import com.google.gson.TypeAdapter;
@@ -141,6 +142,18 @@ public class PrimaveraTaskProperties {
 
   @SerializedName("BudgetedExpenseCost")
   private BigDecimal budgetedExpenseCost = null;
+
+  @SerializedName("PrimaryConstraintType")
+  private PrimaveraConstraintType primaryConstraintType = null;
+
+  @SerializedName("PrimaryConstraintDate")
+  private OffsetDateTime primaryConstraintDate = null;
+
+  @SerializedName("SecondaryConstraintType")
+  private PrimaveraConstraintType secondaryConstraintType = null;
+
+  @SerializedName("SecondaryConstraintDate")
+  private OffsetDateTime secondaryConstraintDate = null;
 
   public PrimaveraTaskProperties sequenceNumber(Integer sequenceNumber) {
     this.sequenceNumber = sequenceNumber;
@@ -700,6 +713,78 @@ public class PrimaveraTaskProperties {
     this.budgetedExpenseCost = budgetedExpenseCost;
   }
 
+  public PrimaveraTaskProperties primaryConstraintType(PrimaveraConstraintType primaryConstraintType) {
+    this.primaryConstraintType = primaryConstraintType;
+    return this;
+  }
+
+   /**
+   * Gets a type of primary constraint.
+   * @return primaryConstraintType
+  **/
+  @ApiModelProperty(required = true, value = "Gets a type of primary constraint.")
+  public PrimaveraConstraintType getPrimaryConstraintType() {
+    return primaryConstraintType;
+  }
+
+  public void setPrimaryConstraintType(PrimaveraConstraintType primaryConstraintType) {
+    this.primaryConstraintType = primaryConstraintType;
+  }
+
+  public PrimaveraTaskProperties primaryConstraintDate(OffsetDateTime primaryConstraintDate) {
+    this.primaryConstraintDate = primaryConstraintDate;
+    return this;
+  }
+
+   /**
+   * Gets the date of primary constraint.
+   * @return primaryConstraintDate
+  **/
+  @ApiModelProperty(required = true, value = "Gets the date of primary constraint.")
+  public OffsetDateTime getPrimaryConstraintDate() {
+    return primaryConstraintDate;
+  }
+
+  public void setPrimaryConstraintDate(OffsetDateTime primaryConstraintDate) {
+    this.primaryConstraintDate = primaryConstraintDate;
+  }
+
+  public PrimaveraTaskProperties secondaryConstraintType(PrimaveraConstraintType secondaryConstraintType) {
+    this.secondaryConstraintType = secondaryConstraintType;
+    return this;
+  }
+
+   /**
+   * Gets a type of secondary constraint.
+   * @return secondaryConstraintType
+  **/
+  @ApiModelProperty(required = true, value = "Gets a type of secondary constraint.")
+  public PrimaveraConstraintType getSecondaryConstraintType() {
+    return secondaryConstraintType;
+  }
+
+  public void setSecondaryConstraintType(PrimaveraConstraintType secondaryConstraintType) {
+    this.secondaryConstraintType = secondaryConstraintType;
+  }
+
+  public PrimaveraTaskProperties secondaryConstraintDate(OffsetDateTime secondaryConstraintDate) {
+    this.secondaryConstraintDate = secondaryConstraintDate;
+    return this;
+  }
+
+   /**
+   * Gets the date of secondary constraint.
+   * @return secondaryConstraintDate
+  **/
+  @ApiModelProperty(required = true, value = "Gets the date of secondary constraint.")
+  public OffsetDateTime getSecondaryConstraintDate() {
+    return secondaryConstraintDate;
+  }
+
+  public void setSecondaryConstraintDate(OffsetDateTime secondaryConstraintDate) {
+    this.secondaryConstraintDate = secondaryConstraintDate;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -740,12 +825,16 @@ public class PrimaveraTaskProperties {
         Objects.equals(this.budgetedLaborCost, primaveraTaskProperties.budgetedLaborCost) &&
         Objects.equals(this.budgetedNonlaborCost, primaveraTaskProperties.budgetedNonlaborCost) &&
         Objects.equals(this.budgetedMaterialCost, primaveraTaskProperties.budgetedMaterialCost) &&
-        Objects.equals(this.budgetedExpenseCost, primaveraTaskProperties.budgetedExpenseCost);
+        Objects.equals(this.budgetedExpenseCost, primaveraTaskProperties.budgetedExpenseCost) &&
+        Objects.equals(this.primaryConstraintType, primaveraTaskProperties.primaryConstraintType) &&
+        Objects.equals(this.primaryConstraintDate, primaveraTaskProperties.primaryConstraintDate) &&
+        Objects.equals(this.secondaryConstraintType, primaveraTaskProperties.secondaryConstraintType) &&
+        Objects.equals(this.secondaryConstraintDate, primaveraTaskProperties.secondaryConstraintDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sequenceNumber, activityId, remainingEarlyFinish, remainingEarlyStart, remainingLateStart, remainingLateFinish, rawDurationType, rawActivityType, rawCompletePercentType, rawStatus, durationPercentComplete, physicalPercentComplete, actualNonLaborUnits, actualLaborUnits, unitsPercentComplete, remainingLaborUnits, remainingNonLaborUnits, durationType, activityType, percentCompleteType, actualLaborCost, actualNonlaborCost, actualMaterialCost, actualExpenseCost, remainingExpenseCost, actualTotalCost, budgetedTotalCost, budgetedLaborCost, budgetedNonlaborCost, budgetedMaterialCost, budgetedExpenseCost);
+    return Objects.hash(sequenceNumber, activityId, remainingEarlyFinish, remainingEarlyStart, remainingLateStart, remainingLateFinish, rawDurationType, rawActivityType, rawCompletePercentType, rawStatus, durationPercentComplete, physicalPercentComplete, actualNonLaborUnits, actualLaborUnits, unitsPercentComplete, remainingLaborUnits, remainingNonLaborUnits, durationType, activityType, percentCompleteType, actualLaborCost, actualNonlaborCost, actualMaterialCost, actualExpenseCost, remainingExpenseCost, actualTotalCost, budgetedTotalCost, budgetedLaborCost, budgetedNonlaborCost, budgetedMaterialCost, budgetedExpenseCost, primaryConstraintType, primaryConstraintDate, secondaryConstraintType, secondaryConstraintDate);
   }
 
 
@@ -785,6 +874,10 @@ public class PrimaveraTaskProperties {
     sb.append("    budgetedNonlaborCost: ").append(toIndentedString(budgetedNonlaborCost)).append("\n");
     sb.append("    budgetedMaterialCost: ").append(toIndentedString(budgetedMaterialCost)).append("\n");
     sb.append("    budgetedExpenseCost: ").append(toIndentedString(budgetedExpenseCost)).append("\n");
+    sb.append("    primaryConstraintType: ").append(toIndentedString(primaryConstraintType)).append("\n");
+    sb.append("    primaryConstraintDate: ").append(toIndentedString(primaryConstraintDate)).append("\n");
+    sb.append("    secondaryConstraintType: ").append(toIndentedString(secondaryConstraintType)).append("\n");
+    sb.append("    secondaryConstraintDate: ").append(toIndentedString(secondaryConstraintDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
