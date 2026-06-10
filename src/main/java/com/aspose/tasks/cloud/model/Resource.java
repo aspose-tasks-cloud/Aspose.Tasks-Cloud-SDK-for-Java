@@ -725,10 +725,10 @@ public class Resource {
   }
 
    /**
-   * The scheduled start date of a resource.
+   * The scheduled start date of a resource. This property is calculated on demand and cannot be set directly.
    * @return start
   **/
-  @ApiModelProperty(required = true, value = "The scheduled start date of a resource.")
+  @ApiModelProperty(required = true, value = "The scheduled start date of a resource. This property is calculated on demand and cannot be set directly.")
   public OffsetDateTime getStart() {
     return start;
   }
@@ -743,10 +743,10 @@ public class Resource {
   }
 
    /**
-   * The scheduled finish date of a resource.
+   * The scheduled finish date of a resource. This property is calculated on demand and cannot be set directly.
    * @return finish
   **/
-  @ApiModelProperty(required = true, value = "The scheduled finish date of a resource.")
+  @ApiModelProperty(required = true, value = "The scheduled finish date of a resource. This property is calculated on demand and cannot be set directly.")
   public OffsetDateTime getFinish() {
     return finish;
   }

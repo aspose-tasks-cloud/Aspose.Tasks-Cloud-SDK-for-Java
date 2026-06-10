@@ -67,6 +67,9 @@ public class TaskItem {
   @SerializedName("Duration")
   private String duration = null;
 
+  @SerializedName("ActivityId")
+  private String activityId = null;
+
   public TaskItem link(Link link) {
     this.link = link;
     return this;
@@ -193,6 +196,24 @@ public class TaskItem {
     this.duration = duration;
   }
 
+  public TaskItem activityId(String activityId) {
+    this.activityId = activityId;
+    return this;
+  }
+
+   /**
+   * Represents activity id field - a task&#39;s unique identifier used by Primavera.     (only applicable to Primavera projects)
+   * @return activityId
+  **/
+  @ApiModelProperty(value = "Represents activity id field - a task's unique identifier used by Primavera.     (only applicable to Primavera projects)")
+  public String getActivityId() {
+    return activityId;
+  }
+
+  public void setActivityId(String activityId) {
+    this.activityId = activityId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -209,12 +230,13 @@ public class TaskItem {
         Objects.equals(this.name, taskItem.name) &&
         Objects.equals(this.start, taskItem.start) &&
         Objects.equals(this.finish, taskItem.finish) &&
-        Objects.equals(this.duration, taskItem.duration);
+        Objects.equals(this.duration, taskItem.duration) &&
+        Objects.equals(this.activityId, taskItem.activityId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(link, uid, id, name, start, finish, duration);
+    return Objects.hash(link, uid, id, name, start, finish, duration, activityId);
   }
 
 
@@ -230,6 +252,7 @@ public class TaskItem {
     sb.append("    start: ").append(toIndentedString(start)).append("\n");
     sb.append("    finish: ").append(toIndentedString(finish)).append("\n");
     sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
+    sb.append("    activityId: ").append(toIndentedString(activityId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

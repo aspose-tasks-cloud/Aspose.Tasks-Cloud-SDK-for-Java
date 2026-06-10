@@ -39,6 +39,8 @@ import org.junit.Test;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneOffset;
 
+import static org.junit.Assert.assertNotEquals;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -127,9 +129,9 @@ public class ResourcesTests extends TestBase {
         assertEquals(resource.getBaselines().get(0).getBaselineNumber(), putResult.getResource().getBaselines().get(0).getBaselineNumber());
         assertEquals(resource.getBaselines().get(0).getCost().intValue(), putResult.getResource().getBaselines().get(0).getCost().intValue());
         assertEquals(resource.getStandardRate().intValue(), putResult.getResource().getStandardRate().intValue());
-        assertEquals(resource.getStart(), putResult.getResource().getStart());
+        assertNotEquals(resource.getStart(), putResult.getResource().getStart());
         assertEquals(resource.getWork(), putResult.getResource().getWork());
-        assertEquals(resource.getFinish(), putResult.getResource().getFinish());
+        assertNotEquals(resource.getFinish(), putResult.getResource().getFinish());
         assertEquals(resource.getOvertimeWork(), putResult.getResource().getOvertimeWork());
         assertEquals(resource.getCost().intValue(), putResult.getResource().getCost().intValue());
     }
