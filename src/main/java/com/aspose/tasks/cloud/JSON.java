@@ -29,8 +29,6 @@ package com.aspose.tasks.cloud;
 
 import com.aspose.tasks.cloud.model.*;
 import com.aspose.tasks.cloud.model.responses.*;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.format.DateTimeParseException;
 import com.google.gson.*;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.stream.JsonReader;
@@ -314,79 +312,32 @@ public class JSON {
                     return null;
                 default:
                     String date = in.nextString();
-                    try {
-                        return OffsetDateTime.parse(date, formatter);
-                    } catch (DateTimeParseException e1) {
-                        try {
-                            return OffsetDateTime.parse(date);
-                        } catch (DateTimeParseException e2) {
-                            try {
-                                LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                                return OffsetDateTime.of(ldt, ZoneOffset.UTC);
-                            } catch (DateTimeParseException e3) {
-                                String normalized = normalizeOffsetDateTimeString(date);
-                                try {
-                                    return OffsetDateTime.parse(normalized, formatter);
-                                } catch (DateTimeParseException e4) {
-                                    try {
-                                        return OffsetDateTime.parse(normalized);
-                                    } catch (DateTimeParseException e5) {
-                                        LocalDateTime ldt2 = LocalDateTime.parse(normalized, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                                        return OffsetDateTime.of(ldt2, ZoneOffset.UTC);
-                                    }
-                                }
-                            }
-                        }
+                    if (date.endsWith("Z")) {
+                        date = date.substring(0, date.length() - 1);
                     }
+                    if (date.indexOf("+") >= 0) {
+                        date = date.substring(0, date.indexOf("+"));
+                    }
+                    Integer index = date.indexOf("T");
+                    String dateString = date.substring(0, index);
+                    String[] timeString = date.substring(index + 1).split(":");
+                    String[] val = dateString.split("-");
+                    String second = timeString[2];
+                    Integer nanoOfSecond = 0;
+                    if(second.contains(".")) {
+                        String[] separatedValues = second.split("\\.");
+                        second = separatedValues[0];
+                        nanoOfSecond = Integer.valueOf(separatedValues[1]);
+                    }
+                    return OffsetDateTime.of(Integer.valueOf(val[0]),
+                            Integer.valueOf(val[1]),
+                            Integer.valueOf(val[2]),
+                            Integer.valueOf(timeString[0]),
+                            Integer.valueOf(timeString[1]),
+                            Integer.valueOf(second),
+                            nanoOfSecond,
+                            ZoneOffset.UTC);
             }
-        }
-
-        private static String normalizeOffsetDateTimeString(String input) {
-            int tIndex = input.indexOf('T');
-            if (tIndex < 0) return input;
-
-            int plus = input.indexOf('+', tIndex);
-            int minus = input.indexOf('-', tIndex);
-            int tzPos;
-            if (plus == -1 && minus == -1) {
-                tzPos = -1;
-            } else if (plus == -1) {
-                tzPos = minus;
-            } else if (minus == -1) {
-                tzPos = plus;
-            } else {
-                tzPos = Math.min(plus, minus);
-            }
-
-            String main;
-            String offset = "";
-            if (tzPos >= 0) {
-                main = input.substring(0, tzPos);
-                offset = input.substring(tzPos);
-            } else {
-                main = input;
-            }
-
-            if (main.contains(".")) {
-                int dot = main.indexOf('.');
-                String before = main.substring(0, dot);
-                String fraction = main.substring(dot + 1);
-                fraction = fraction.replaceAll("[^0-9]", "");
-                if (fraction.length() > 9) fraction = fraction.substring(0, 9);
-                while (fraction.length() < 9) fraction = fraction + "0";
-                main = before + "." + fraction;
-            }
-
-            if (!offset.isEmpty()) {
-                if (offset.matches("^[+-]\\d{2}$")) {
-                    offset = offset + ":00";
-                }
-                else if (offset.matches("^[+-]\\d{4}$")) {
-                    offset = offset.substring(0, 3) + ":" + offset.substring(3);
-                }
-            }
-
-            return main + offset;
         }
     }
 

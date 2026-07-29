@@ -4,7 +4,7 @@
     <artifactId>aspose-tasks-cloud</artifactId>
     <packaging>jar</packaging>
     <name>aspose-tasks-cloud</name>
-    <version>26.6.0</version>
+    <version>26.7.0</version>
     <url>https://www.aspose.cloud/</url>
     <description>Aspose Tasks Cloud Java SDK</description>
     <scm>
@@ -95,6 +95,10 @@
                     <argLine>-Xms512m -Xmx1500m</argLine>
                     <parallel>methods</parallel>
                     <forkMode>pertest</forkMode>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
                 </configuration>
             </plugin>
             <plugin>

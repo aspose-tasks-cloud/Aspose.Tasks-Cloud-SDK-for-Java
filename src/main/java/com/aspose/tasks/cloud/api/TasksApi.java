@@ -6494,6 +6494,840 @@ if (request.getxSharepointPassword() != null)
         return call;
     }
     /**
+     * Build call for getGroupedResources
+     * @param request GetGroupedResources request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getGroupedResourcesCall(GetGroupedResourcesRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/resourceGroups/{groupUid}/resources"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()))
+            .replaceAll("\\{" + "groupUid" + "\\}", apiClient.escapeString(request.getgroupUid().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getGroupedResourcesValidateBeforeCall(GetGroupedResourcesRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getGroupedResources");
+        }
+        
+        // verify the required parameter 'groupUid' is set
+        if (request.getgroupUid() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'groupUid' when calling getGroupedResources");
+        }
+        
+
+        com.squareup.okhttp.Call call = getGroupedResourcesCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Returns the project resources grouped according to the specified resource group definition.
+     * 
+     * request GetGroupedResources request with main agrs
+     * @return GroupedResourcesResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupedResourcesResponse getGroupedResources(GetGroupedResourcesRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupedResourcesResponse> resp = getGroupedResourcesWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupedResourcesResponse> resp = getGroupedResourcesWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Returns the project resources grouped according to the specified resource group definition.
+     * 
+     * @param request GetGroupedResources request with main agrs
+     * @return ApiResponse&lt;GroupedResourcesResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupedResourcesResponse> getGroupedResourcesWithHttpInfo(GetGroupedResourcesRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getGroupedResourcesValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupedResourcesResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Returns the project resources grouped according to the specified resource group definition. (asynchronously)
+     * 
+     * @param request GetGroupedResources request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getGroupedResourcesAsync(GetGroupedResourcesRequest request, final ApiCallback<GroupedResourcesResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getGroupedResourcesValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupedResourcesResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getGroupedTasks
+     * @param request GetGroupedTasks request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getGroupedTasksCall(GetGroupedTasksRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/taskGroups/{groupUid}/tasks"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()))
+            .replaceAll("\\{" + "groupUid" + "\\}", apiClient.escapeString(request.getgroupUid().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getGroupedTasksValidateBeforeCall(GetGroupedTasksRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getGroupedTasks");
+        }
+        
+        // verify the required parameter 'groupUid' is set
+        if (request.getgroupUid() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'groupUid' when calling getGroupedTasks");
+        }
+        
+
+        com.squareup.okhttp.Call call = getGroupedTasksCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Returns the project tasks grouped according to the specified task group definition.
+     * 
+     * request GetGroupedTasks request with main agrs
+     * @return GroupedTasksResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupedTasksResponse getGroupedTasks(GetGroupedTasksRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupedTasksResponse> resp = getGroupedTasksWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupedTasksResponse> resp = getGroupedTasksWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Returns the project tasks grouped according to the specified task group definition.
+     * 
+     * @param request GetGroupedTasks request with main agrs
+     * @return ApiResponse&lt;GroupedTasksResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupedTasksResponse> getGroupedTasksWithHttpInfo(GetGroupedTasksRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getGroupedTasksValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupedTasksResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Returns the project tasks grouped according to the specified task group definition. (asynchronously)
+     * 
+     * @param request GetGroupedTasks request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getGroupedTasksAsync(GetGroupedTasksRequest request, final ApiCallback<GroupedTasksResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getGroupedTasksValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupedTasksResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getResourceGroup
+     * @param request GetResourceGroup request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getResourceGroupCall(GetResourceGroupRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/resourceGroups/{groupUid}"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()))
+            .replaceAll("\\{" + "groupUid" + "\\}", apiClient.escapeString(request.getgroupUid().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getResourceGroupValidateBeforeCall(GetResourceGroupRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getResourceGroup");
+        }
+        
+        // verify the required parameter 'groupUid' is set
+        if (request.getgroupUid() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'groupUid' when calling getResourceGroup");
+        }
+        
+
+        com.squareup.okhttp.Call call = getResourceGroupCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Read a project&#39;s resource group definition with the specified Uid.
+     * 
+     * request GetResourceGroup request with main agrs
+     * @return GroupResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupResponse getResourceGroup(GetResourceGroupRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupResponse> resp = getResourceGroupWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupResponse> resp = getResourceGroupWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Read a project&#39;s resource group definition with the specified Uid.
+     * 
+     * @param request GetResourceGroup request with main agrs
+     * @return ApiResponse&lt;GroupResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupResponse> getResourceGroupWithHttpInfo(GetResourceGroupRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getResourceGroupValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Read a project&#39;s resource group definition with the specified Uid. (asynchronously)
+     * 
+     * @param request GetResourceGroup request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getResourceGroupAsync(GetResourceGroupRequest request, final ApiCallback<GroupResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getResourceGroupValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getResourceGroups
+     * @param request GetResourceGroups request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getResourceGroupsCall(GetResourceGroupsRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/resourceGroups"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getResourceGroupsValidateBeforeCall(GetResourceGroupsRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getResourceGroups");
+        }
+        
+
+        com.squareup.okhttp.Call call = getResourceGroupsCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Read the resource group definitions of a project.
+     * 
+     * request GetResourceGroups request with main agrs
+     * @return GroupItemsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupItemsResponse getResourceGroups(GetResourceGroupsRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupItemsResponse> resp = getResourceGroupsWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupItemsResponse> resp = getResourceGroupsWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Read the resource group definitions of a project.
+     * 
+     * @param request GetResourceGroups request with main agrs
+     * @return ApiResponse&lt;GroupItemsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupItemsResponse> getResourceGroupsWithHttpInfo(GetResourceGroupsRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getResourceGroupsValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupItemsResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Read the resource group definitions of a project. (asynchronously)
+     * 
+     * @param request GetResourceGroups request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getResourceGroupsAsync(GetResourceGroupsRequest request, final ApiCallback<GroupItemsResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getResourceGroupsValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupItemsResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getTaskGroup
+     * @param request GetTaskGroup request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getTaskGroupCall(GetTaskGroupRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/taskGroups/{groupUid}"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()))
+            .replaceAll("\\{" + "groupUid" + "\\}", apiClient.escapeString(request.getgroupUid().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getTaskGroupValidateBeforeCall(GetTaskGroupRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getTaskGroup");
+        }
+        
+        // verify the required parameter 'groupUid' is set
+        if (request.getgroupUid() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'groupUid' when calling getTaskGroup");
+        }
+        
+
+        com.squareup.okhttp.Call call = getTaskGroupCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Read a project&#39;s task group definition with the specified Uid.
+     * 
+     * request GetTaskGroup request with main agrs
+     * @return GroupResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupResponse getTaskGroup(GetTaskGroupRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupResponse> resp = getTaskGroupWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupResponse> resp = getTaskGroupWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Read a project&#39;s task group definition with the specified Uid.
+     * 
+     * @param request GetTaskGroup request with main agrs
+     * @return ApiResponse&lt;GroupResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupResponse> getTaskGroupWithHttpInfo(GetTaskGroupRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getTaskGroupValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Read a project&#39;s task group definition with the specified Uid. (asynchronously)
+     * 
+     * @param request GetTaskGroup request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getTaskGroupAsync(GetTaskGroupRequest request, final ApiCallback<GroupResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getTaskGroupValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getTaskGroups
+     * @param request GetTaskGroups request with main agrs
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    private com.squareup.okhttp.Call getTaskGroupsCall(GetTaskGroupsRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{name}/taskGroups"
+            .replaceAll("\\{" + "name" + "\\}", apiClient.escapeString(request.getname().toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "storage", request.getstorage());
+        localVarPath = addParameterToQuery(localVarQueryParams, localVarPath, "folder", request.getfolder());
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        
+        Map<String, Object> localVarFormParams = new LinkedHashMap<String, Object>();
+        
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "JWT" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getTaskGroupsValidateBeforeCall(GetTaskGroupsRequest request, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'name' is set
+        if (request.getname() == null) {
+          throw new ApiException(BadRequest, "Missing the required parameter 'name' when calling getTaskGroups");
+        }
+        
+
+        com.squareup.okhttp.Call call = getTaskGroupsCall(request, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Read the task group definitions of a project.
+     * 
+     * request GetTaskGroups request with main agrs
+     * @return GroupItemsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GroupItemsResponse getTaskGroups(GetTaskGroupsRequest request) throws ApiException {
+        try {
+            ApiResponse<GroupItemsResponse> resp = getTaskGroupsWithHttpInfo(request);
+            return resp.getData();
+        }
+        catch (ApiException ex) {
+            if (ex.getCode() == NotAuth) {
+                apiClient.requestToken();
+                ApiResponse<GroupItemsResponse> resp = getTaskGroupsWithHttpInfo(request);
+                return resp.getData();
+            }
+            throw ex;
+        }
+    }
+
+    /**
+     * Read the task group definitions of a project.
+     * 
+     * @param request GetTaskGroups request with main agrs
+     * @return ApiResponse&lt;GroupItemsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    private ApiResponse<GroupItemsResponse> getTaskGroupsWithHttpInfo(GetTaskGroupsRequest request) throws ApiException {
+        com.squareup.okhttp.Call call = getTaskGroupsValidateBeforeCall(request, null, null);
+        Type localVarReturnType = new TypeToken<GroupItemsResponse>() { }.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Read the task group definitions of a project. (asynchronously)
+     * 
+     * @param request GetTaskGroups request with main agrs
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getTaskGroupsAsync(GetTaskGroupsRequest request, final ApiCallback<GroupItemsResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getTaskGroupsValidateBeforeCall(request, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GroupItemsResponse>() { }.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for deleteOutlineCodeByIndex
      * @param request DeleteOutlineCodeByIndex request with main agrs
      * @param progressListener Progress listener
