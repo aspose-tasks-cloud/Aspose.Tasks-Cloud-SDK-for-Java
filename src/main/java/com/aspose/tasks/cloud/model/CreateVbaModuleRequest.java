@@ -29,7 +29,6 @@ package com.aspose.tasks.cloud.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.aspose.tasks.cloud.model.VbaModuleAttribute;
 import com.aspose.tasks.cloud.model.VbaModuleType;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -39,63 +38,32 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Represents a vba module 
+ * Represents the body of a request that creates a new VBA module.
  */
-@ApiModel(description = "Represents a vba module ")
+@ApiModel(description = "Represents the body of a request that creates a new VBA module.")
 
-public class VbaModule {
-  @SerializedName("Attributes")
-  private List<VbaModuleAttribute> attributes = null;
-
+public class CreateVbaModuleRequest {
   @SerializedName("Name")
   private String name = null;
-
-  @SerializedName("SourceCode")
-  private String sourceCode = null;
 
   @SerializedName("Type")
   private VbaModuleType type = null;
 
-  public VbaModule attributes(List<VbaModuleAttribute> attributes) {
-    this.attributes = attributes;
-    return this;
-  }
+  @SerializedName("SourceCode")
+  private String sourceCode = null;
 
-  public VbaModule addAttributesItem(VbaModuleAttribute attributesItem) {
-    if (this.attributes == null) {
-      this.attributes = new ArrayList<VbaModuleAttribute>();
-    }
-    this.attributes.add(attributesItem);
-    return this;
-  }
-
-   /**
-   * Gets a collection of  VbaModuleAttributeCollection
-   * @return attributes
-  **/
-  @ApiModelProperty(value = "Gets a collection of  VbaModuleAttributeCollection")
-  public List<VbaModuleAttribute> getAttributes() {
-    return attributes;
-  }
-
-  public void setAttributes(List<VbaModuleAttribute> attributes) {
-    this.attributes = attributes;
-  }
-
-  public VbaModule name(String name) {
+  public CreateVbaModuleRequest name(String name) {
     this.name = name;
     return this;
   }
 
    /**
-   * Gets the name of the module.
+   * Gets or sets the name of the VBA module to create.
    * @return name
   **/
-  @ApiModelProperty(value = "Gets the name of the module.")
+  @ApiModelProperty(value = "Gets or sets the name of the VBA module to create.")
   public String getName() {
     return name;
   }
@@ -104,40 +72,40 @@ public class VbaModule {
     this.name = name;
   }
 
-  public VbaModule sourceCode(String sourceCode) {
-    this.sourceCode = sourceCode;
-    return this;
-  }
-
-   /**
-   * Gets a source code of the module
-   * @return sourceCode
-  **/
-  @ApiModelProperty(value = "Gets a source code of the module")
-  public String getSourceCode() {
-    return sourceCode;
-  }
-
-  public void setSourceCode(String sourceCode) {
-    this.sourceCode = sourceCode;
-  }
-
-  public VbaModule type(VbaModuleType type) {
+  public CreateVbaModuleRequest type(VbaModuleType type) {
     this.type = type;
     return this;
   }
 
    /**
-   * Gets the type of the module.
+   * Gets or sets the type of the VBA module to create. Only ProceduralModule and ClassModule can be created; other values are rejected.
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Gets the type of the module.")
+  @ApiModelProperty(required = true, value = "Gets or sets the type of the VBA module to create. Only ProceduralModule and ClassModule can be created; other values are rejected.")
   public VbaModuleType getType() {
     return type;
   }
 
   public void setType(VbaModuleType type) {
     this.type = type;
+  }
+
+  public CreateVbaModuleRequest sourceCode(String sourceCode) {
+    this.sourceCode = sourceCode;
+    return this;
+  }
+
+   /**
+   * Gets or sets the source code to store in the new VBA module.
+   * @return sourceCode
+  **/
+  @ApiModelProperty(value = "Gets or sets the source code to store in the new VBA module.")
+  public String getSourceCode() {
+    return sourceCode;
+  }
+
+  public void setSourceCode(String sourceCode) {
+    this.sourceCode = sourceCode;
   }
 
 
@@ -149,28 +117,26 @@ public class VbaModule {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    VbaModule vbaModule = (VbaModule) o;
-    return Objects.equals(this.attributes, vbaModule.attributes) &&
-        Objects.equals(this.name, vbaModule.name) &&
-        Objects.equals(this.sourceCode, vbaModule.sourceCode) &&
-        Objects.equals(this.type, vbaModule.type);
+    CreateVbaModuleRequest createVbaModuleRequest = (CreateVbaModuleRequest) o;
+    return Objects.equals(this.name, createVbaModuleRequest.name) &&
+        Objects.equals(this.type, createVbaModuleRequest.type) &&
+        Objects.equals(this.sourceCode, createVbaModuleRequest.sourceCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, name, sourceCode, type);
+    return Objects.hash(name, type, sourceCode);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class VbaModule {\n");
+    sb.append("class CreateVbaModuleRequest {\n");
     
-    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    sourceCode: ").append(toIndentedString(sourceCode)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    sourceCode: ").append(toIndentedString(sourceCode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

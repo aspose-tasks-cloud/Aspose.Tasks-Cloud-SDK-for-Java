@@ -29,8 +29,6 @@ package com.aspose.tasks.cloud.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.aspose.tasks.cloud.model.VbaModuleAttribute;
-import com.aspose.tasks.cloud.model.VbaModuleType;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -39,105 +37,32 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Represents a vba module 
+ * Represents the body of a request that updates a VBA module.
  */
-@ApiModel(description = "Represents a vba module ")
+@ApiModel(description = "Represents the body of a request that updates a VBA module.")
 
-public class VbaModule {
-  @SerializedName("Attributes")
-  private List<VbaModuleAttribute> attributes = null;
-
-  @SerializedName("Name")
-  private String name = null;
-
+public class UpdateVbaModuleRequest {
   @SerializedName("SourceCode")
   private String sourceCode = null;
 
-  @SerializedName("Type")
-  private VbaModuleType type = null;
-
-  public VbaModule attributes(List<VbaModuleAttribute> attributes) {
-    this.attributes = attributes;
-    return this;
-  }
-
-  public VbaModule addAttributesItem(VbaModuleAttribute attributesItem) {
-    if (this.attributes == null) {
-      this.attributes = new ArrayList<VbaModuleAttribute>();
-    }
-    this.attributes.add(attributesItem);
-    return this;
-  }
-
-   /**
-   * Gets a collection of  VbaModuleAttributeCollection
-   * @return attributes
-  **/
-  @ApiModelProperty(value = "Gets a collection of  VbaModuleAttributeCollection")
-  public List<VbaModuleAttribute> getAttributes() {
-    return attributes;
-  }
-
-  public void setAttributes(List<VbaModuleAttribute> attributes) {
-    this.attributes = attributes;
-  }
-
-  public VbaModule name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Gets the name of the module.
-   * @return name
-  **/
-  @ApiModelProperty(value = "Gets the name of the module.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public VbaModule sourceCode(String sourceCode) {
+  public UpdateVbaModuleRequest sourceCode(String sourceCode) {
     this.sourceCode = sourceCode;
     return this;
   }
 
    /**
-   * Gets a source code of the module
+   * The new source code
    * @return sourceCode
   **/
-  @ApiModelProperty(value = "Gets a source code of the module")
+  @ApiModelProperty(value = "The new source code")
   public String getSourceCode() {
     return sourceCode;
   }
 
   public void setSourceCode(String sourceCode) {
     this.sourceCode = sourceCode;
-  }
-
-  public VbaModule type(VbaModuleType type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Gets the type of the module.
-   * @return type
-  **/
-  @ApiModelProperty(required = true, value = "Gets the type of the module.")
-  public VbaModuleType getType() {
-    return type;
-  }
-
-  public void setType(VbaModuleType type) {
-    this.type = type;
   }
 
 
@@ -149,28 +74,22 @@ public class VbaModule {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    VbaModule vbaModule = (VbaModule) o;
-    return Objects.equals(this.attributes, vbaModule.attributes) &&
-        Objects.equals(this.name, vbaModule.name) &&
-        Objects.equals(this.sourceCode, vbaModule.sourceCode) &&
-        Objects.equals(this.type, vbaModule.type);
+    UpdateVbaModuleRequest updateVbaModuleRequest = (UpdateVbaModuleRequest) o;
+    return Objects.equals(this.sourceCode, updateVbaModuleRequest.sourceCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, name, sourceCode, type);
+    return Objects.hash(sourceCode);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class VbaModule {\n");
+    sb.append("class UpdateVbaModuleRequest {\n");
     
-    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    sourceCode: ").append(toIndentedString(sourceCode)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

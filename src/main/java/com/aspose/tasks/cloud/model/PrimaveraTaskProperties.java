@@ -155,6 +155,9 @@ public class PrimaveraTaskProperties {
   @SerializedName("SecondaryConstraintDate")
   private OffsetDateTime secondaryConstraintDate = null;
 
+  @SerializedName("PlannedDuration")
+  private String plannedDuration = null;
+
   public PrimaveraTaskProperties sequenceNumber(Integer sequenceNumber) {
     this.sequenceNumber = sequenceNumber;
     return this;
@@ -785,6 +788,24 @@ public class PrimaveraTaskProperties {
     this.secondaryConstraintDate = secondaryConstraintDate;
   }
 
+  public PrimaveraTaskProperties plannedDuration(String plannedDuration) {
+    this.plannedDuration = plannedDuration;
+    return this;
+  }
+
+   /**
+   * Gets the original or planned duration -- the total working time from the task planned start date to the planned finish date.
+   * @return plannedDuration
+  **/
+  @ApiModelProperty(required = true, value = "Gets the original or planned duration -- the total working time from the task planned start date to the planned finish date.")
+  public String getPlannedDuration() {
+    return plannedDuration;
+  }
+
+  public void setPlannedDuration(String plannedDuration) {
+    this.plannedDuration = plannedDuration;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -829,12 +850,13 @@ public class PrimaveraTaskProperties {
         Objects.equals(this.primaryConstraintType, primaveraTaskProperties.primaryConstraintType) &&
         Objects.equals(this.primaryConstraintDate, primaveraTaskProperties.primaryConstraintDate) &&
         Objects.equals(this.secondaryConstraintType, primaveraTaskProperties.secondaryConstraintType) &&
-        Objects.equals(this.secondaryConstraintDate, primaveraTaskProperties.secondaryConstraintDate);
+        Objects.equals(this.secondaryConstraintDate, primaveraTaskProperties.secondaryConstraintDate) &&
+        Objects.equals(this.plannedDuration, primaveraTaskProperties.plannedDuration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sequenceNumber, activityId, remainingEarlyFinish, remainingEarlyStart, remainingLateStart, remainingLateFinish, rawDurationType, rawActivityType, rawCompletePercentType, rawStatus, durationPercentComplete, physicalPercentComplete, actualNonLaborUnits, actualLaborUnits, unitsPercentComplete, remainingLaborUnits, remainingNonLaborUnits, durationType, activityType, percentCompleteType, actualLaborCost, actualNonlaborCost, actualMaterialCost, actualExpenseCost, remainingExpenseCost, actualTotalCost, budgetedTotalCost, budgetedLaborCost, budgetedNonlaborCost, budgetedMaterialCost, budgetedExpenseCost, primaryConstraintType, primaryConstraintDate, secondaryConstraintType, secondaryConstraintDate);
+    return Objects.hash(sequenceNumber, activityId, remainingEarlyFinish, remainingEarlyStart, remainingLateStart, remainingLateFinish, rawDurationType, rawActivityType, rawCompletePercentType, rawStatus, durationPercentComplete, physicalPercentComplete, actualNonLaborUnits, actualLaborUnits, unitsPercentComplete, remainingLaborUnits, remainingNonLaborUnits, durationType, activityType, percentCompleteType, actualLaborCost, actualNonlaborCost, actualMaterialCost, actualExpenseCost, remainingExpenseCost, actualTotalCost, budgetedTotalCost, budgetedLaborCost, budgetedNonlaborCost, budgetedMaterialCost, budgetedExpenseCost, primaryConstraintType, primaryConstraintDate, secondaryConstraintType, secondaryConstraintDate, plannedDuration);
   }
 
 
@@ -878,6 +900,7 @@ public class PrimaveraTaskProperties {
     sb.append("    primaryConstraintDate: ").append(toIndentedString(primaryConstraintDate)).append("\n");
     sb.append("    secondaryConstraintType: ").append(toIndentedString(secondaryConstraintType)).append("\n");
     sb.append("    secondaryConstraintDate: ").append(toIndentedString(secondaryConstraintDate)).append("\n");
+    sb.append("    plannedDuration: ").append(toIndentedString(plannedDuration)).append("\n");
     sb.append("}");
     return sb.toString();
   }
